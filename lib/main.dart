@@ -132,19 +132,52 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ),
-          // TweenAnimationBuilder(
-          //   tween: Tween<double>(begin: 0, end: 0),
-          //   duration: const Duration(milliseconds: 500),
-          //   builder: (_, double val, __) {
-          //     return (
-          //       Transform(
-          //         transform: Matrix4.identity()
-          //           ..setEntry(0, 3, 200 * val)
-          //           ..rotateY((pi / 6) * val),
-          //       ),
-          //     );
-          //   },
-          // ),
+          TweenAnimationBuilder(
+            tween: Tween<double>(begin: 0, end: 0),
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeInExpo,
+            builder: (_, double val, __) {
+              return (Transform(
+                alignment: Alignment.center,
+                transform: Matrix4.identity()
+                  ..setEntry(3, 2, 0.001)
+                  ..setEntry(0, 3, 200 * val)
+                  ..rotateY((pi / 6) * val),
+                child: Scaffold(
+                  appBar: AppBar(
+                    title: const Text('3D Drawer Menu'),
+                  ),
+                  body: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Demo 3D Menu Bar 👉',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        ElevatedButton(
+                            onPressed: () {},
+                            child: const Text('Go To Dashboard'))
+                      ],
+                    ),
+                  ),
+                ),
+              ));
+            },
+          ),
+          GestureDetector(
+            onHorizontalDragUpdate: (e) {
+              if (e.delta.dx > 0) {
+                setState(() {
+                  value = 1;
+                });
+              } else {
+                setState(() {
+                  value = 0;
+                });
+              }
+            },
+          ),
         ],
       ),
     );
